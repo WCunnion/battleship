@@ -14,14 +14,6 @@ class Grid:
     def changeSingleSpace(self, row, col , value):
         self.grid[row][col] = value
 
-    # This is a useful method to determine if the space is "~" or something else
-    # Send it the grid you want to check, so ship or shot
-    def isSpaceWater(self, row, col):
-        if self.grid[row][col] == "~":
-            return True
-        else:
-            return False
-
     # Row = the row to change
     # Value = the string to put into the list
     # colStart = the start of the column to be changed
