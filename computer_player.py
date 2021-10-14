@@ -1,6 +1,7 @@
-from player import Player
-from grid import Grid
+from Player import Player
+from Grid import Grid
 import random
+
 
 class ComputerPlayer(Player):
     def __init__(self):
@@ -26,8 +27,6 @@ class ComputerPlayer(Player):
                     if isDestroyed:
                         print("Ship", destroyedShip, "has been destroyed")
 
-
-
     def placeShip(self, ship, size):
         legal = False
         r = 0
@@ -37,15 +36,15 @@ class ComputerPlayer(Player):
             vertical = random.choice([True, False])
             legal = True
             if vertical:
-                r = random.randint(0,10 - size)
-                c = random.randint(0,10)
+                r = random.randint(0, 10 - size)
+                c = random.randint(0, 10)
                 for x in range(size):
                     if not self.gridShips.isSpaceWater(r + x, c):
                         legal = False
                         pass
             else:
-                r = random.randint(0,10)
-                c = random.randint(0,10 - size)
+                r = random.randint(0, 10)
+                c = random.randint(0, 10 - size)
                 for x in range(size):
                     if not self.gridShips.isSpaceWater(r, c + x):
                         legal = False
@@ -54,5 +53,3 @@ class ComputerPlayer(Player):
             self.gridShips.changeCol(c, ship, r, size)
         else:
             self.gridShips.changeRow(r, ship, c, size)
-
-
