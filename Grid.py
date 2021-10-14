@@ -36,3 +36,11 @@ class Grid:
     def printGrid(self):
         for row in self.grid :
             print( row )
+
+    # This is a useful method to determine if the space is "~" or something else
+    # Send it the grid you want to check, so ship or shot
+    def isSpaceWater(self, row, col):
+        if self.grid[row][col] == "~":
+            return True
+        else:
+            return False
