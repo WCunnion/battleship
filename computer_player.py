@@ -15,17 +15,22 @@ class ComputerPlayer(Player):
                 if otherPlayer.gridShips.isSpaceWater(r, c):
                     self.gridShots.changeSingleSpace(r, c, "0")
                     otherPlayer.gridShips.changeSingleSpace(r, c, "0")
+                    print("Miss")
                 else:
                     destroyedShip = otherPlayer.gridShips.returnLocation(r, c).clone()
                     self.gridShots.changeSingleSpace(r, c, "X")
                     otherPlayer.gridShips.changeSingleSpace(r, c, "X")
                     isDestroyed = True
-                    for x in otherPlayer.gridShips:
+                    for x in otherPlayer.gridShips.grid:
                         if destroyedShip in x:
                             isDestroyed = False
-                            pass
+                            break
                     if isDestroyed:
-                        print("Ship", destroyedShip, "has been destroyed")
+                        print("You sank the", destroyedShip, "battleship")
+                    else:
+                        print("Hit!")
+                break
+
 
     def placeShip(self, ship, size):
         legal = False
@@ -41,15 +46,26 @@ class ComputerPlayer(Player):
                 for x in range(size):
                     if not self.gridShips.isSpaceWater(r + x, c):
                         legal = False
-                        pass
+                        break
             else:
                 r = random.randint(0, 10)
                 c = random.randint(0, 10 - size)
                 for x in range(size):
                     if not self.gridShips.isSpaceWater(r, c + x):
                         legal = False
-                        pass
+                        break
         if vertical:
             self.gridShips.changeCol(c, ship, r, size)
         else:
             self.gridShips.changeRow(r, ship, c, size)
+
+    # this method will determine if the Player's ship grid still
+    # has ships or not
+    # If they have no ships left, the other player wins
+    # This method returns true if they still have ships
+    # This method returns false if they don't have ships
+    def stillHasShips(self):
+        for x in self.gridShips.grid:
+            if "A" in x or "B" in x or "C" in x or "D" in x or "S" in x:
+                return False
+        return True
