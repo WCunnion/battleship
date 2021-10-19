@@ -59,11 +59,6 @@ class ComputerPlayer(Player):
         else:
             self.gridShips.changeRow(r, ship, c, size)
 
-    # this method will determine if the Player's ship grid still
-    # has ships or not
-    # If they have no ships left, the other player wins
-    # This method returns true if they still have ships
-    # This method returns false if they don't have ships
     def stillHasShips(self):
         for x in self.gridShips.grid:
             if "A" in x or "B" in x or "C" in x or "D" in x or "S" in x:
