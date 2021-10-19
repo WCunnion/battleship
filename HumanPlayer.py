@@ -29,10 +29,12 @@ class HumanPlayer(Player):
                     self.gridShots.changeSingleSpace(rowNum, colNum, "X")
                     otherPlayer.gridShips.changeSingleSpace(rowNum, colNum, "X")
                     isDestroyed = True
-                    for x in otherPlayer.gridShips.grid: # checks if entire ship has now been shot
-                        if destroyedShip in x:
-                            isDestroyed = False
-                            break
+                    for r in range(10):  # traverses 2D grid
+                        for c in range(10):
+                            if otherPlayer.shipGrid.returnLocation(r,
+                                                                   c) is destroyedShip:  # checks each space if any parts of the ship aren't sunk
+                                isDestroyed = False
+                                break
                     if isDestroyed: # ship was hit and sank
                         print("You sank the", destroyedShip, "battleship")
                     else: # ship was hit but not sank
