@@ -93,7 +93,7 @@ class HumanPlayer(Player):
         for r in range(10): # nested for loops traverse 2D array
             for c in range(10):
                 if self.gridShips.returnLocation(r, c) is not "X" and self.gridShips.returnLocation(r,c) is not "0" and not self.gridShips.isSpaceWater(r, c):
-                    return True # if statement returns false if the returnLocation method gives a ship (not an X, 0, or ~)
+                    return True # if statement returns True if the returnLocation method gives a ship (not an X, 0, or ~)
         return False # a ship was not detected on the map, so there are no ships left
 
 
