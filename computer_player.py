@@ -26,6 +26,8 @@ class ComputerPlayer(Player):
                             if otherPlayer.gridShips.returnLocation(r, c) is destroyedShip:  # checks each space if any parts of the ship aren't sunk
                                 isDestroyed = False
                                 break
+                        if not isDestroyed:
+                            break
                     if isDestroyed:
                         print("You sank the", destroyedShip, "battleship")
                     else:

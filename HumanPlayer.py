@@ -16,6 +16,8 @@ class HumanPlayer(Player):
                 rowNum = int(input("Please enter the row you would like to attack"))
                 if rowNum < 1 or rowNum > 10: # makes sure rowNum is in bounds
                     print("error, please enter a value between 1 and 10 for the row")
+            rowNum = rowNum - 1
+            colNum = colNum - 1
             if not self.gridShips.isSpaceWater(rowNum, colNum): # makes sure the player does not shoot the same space twice
                 print("Error, you have already shot that space")
                 continue
@@ -34,6 +36,8 @@ class HumanPlayer(Player):
                             if otherPlayer.gridShips.returnLocation(r, c) is destroyedShip:  # checks each space if any parts of the ship aren't sunk
                                 isDestroyed = False
                                 break
+                        if not isDestroyed:
+                            break
                     if isDestroyed: # ship was hit and sank
                         print("You sank the", destroyedShip, "battleship")
                     else: # ship was hit but not sank
@@ -71,14 +75,14 @@ class HumanPlayer(Player):
             c = colNum - 1
             if orientation == 'v': # ship is vertical
                 for i in range(size): # checks the rest of the spaces based on the orientation and starting point of the ship
-                    if not self.gridShips.isSpaceWater(r,c): # one of the spaces is occupied by another ship
+                    if not self.gridShips.isSpaceWater(r, c): # one of the spaces is occupied by another ship
                         print("Error, ship cannot be placed there")
                         continue
                     r += 1
                 self.gridShips.changeRow(self, c, ship, rowNum-1, size)
             if orientation == 'h': # ship is horizontal
                 for i in range(size): # checks the rest of the spaces based on the orientation and starting point of the ship
-                    if not self.gridShips.isSpaceWater(r,c): # one of the spaces is occupied by another ship
+                    if not self.gridShips.isSpaceWater(r, c): # one of the spaces is occupied by another ship
                         print("Error, ship cannot ne placed there")
                         continue
                     c += 1
