@@ -25,14 +25,13 @@ class HumanPlayer(Player):
                     otherPlayer.gridShips.changeSingleSpace(rowNum, colNum, "0")
                     print("Miss")
                 else: # space being shot has a ship
-                    destroyedShip = otherPlayer.gridShips.returnLocation(rowNum, colNum).clone()
+                    destroyedShip = otherPlayer.gridShips.returnLocation(rowNum, colNum)
                     self.gridShots.changeSingleSpace(rowNum, colNum, "X")
                     otherPlayer.gridShips.changeSingleSpace(rowNum, colNum, "X")
                     isDestroyed = True
                     for r in range(10):  # traverses 2D grid
                         for c in range(10):
-                            if otherPlayer.shipGrid.returnLocation(r,
-                                                                   c) is destroyedShip:  # checks each space if any parts of the ship aren't sunk
+                            if otherPlayer.gridShips.returnLocation(r, c) is destroyedShip:  # checks each space if any parts of the ship aren't sunk
                                 isDestroyed = False
                                 break
                     if isDestroyed: # ship was hit and sank
@@ -89,9 +88,9 @@ class HumanPlayer(Player):
     def stillHasShips(self):
         for r in range(10): # nested for loops traverse 2D array
             for c in range(10):
-                if self.gridShips.returnLocation(r, c) is not "X" or self.gridShips.returnLocation(r,c) is not "0" or not self.gridShips.isSpaceWater(r, c):
-                    return False # if statement returns false if the returnLocation method gives a ship (not an X, 0, or ~)
-        return True # a ship was not detected on the map, so there are no ships left
+                if self.gridShips.returnLocation(r, c) is not "X" and self.gridShips.returnLocation(r,c) is not "0" and not self.gridShips.isSpaceWater(r, c):
+                    return True # if statement returns false if the returnLocation method gives a ship (not an X, 0, or ~)
+        return False # a ship was not detected on the map, so there are no ships left
 
 
 
