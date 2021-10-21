@@ -45,10 +45,10 @@ class HumanPlayer(Player):
                 break
 
     def placeShip(self, ship, size):
-        orientation = "word"
-        rowNum = 0
-        colNum = 0
         while True: # runs infinite loop, only broken once a valid spot has been chosen to place the ship
+            orientation = "word"
+            rowNum = 0
+            colNum = 0
             while orientation != 'v' and orientation != 'h': # loop only broken once a proper input for orientation has been entered
                 orientation = str(input("Would you like the ship to be vertical (enter v) or horizontal (enter h)"))
                 if orientation != 'v' and orientation != 'h': # orientation value is not valid, loop runs again
@@ -73,26 +73,33 @@ class HumanPlayer(Player):
                         print("error, please enter a value between 1 and", 10-size, "for the row")
             r = rowNum - 1
             c = colNum - 1
+            isValid = True
             if orientation == 'v': # ship is vertical
                 for i in range(size): # checks the rest of the spaces based on the orientation and starting point of the ship
                     if not self.gridShips.isSpaceWater(r, c): # one of the spaces is occupied by another ship
-                        print("Error, ship cannot be placed there")
-                        continue
+                        print("Error, ship cannot be placed there, try again")
+                        isValid = False
+                        break
                     r += 1
-                self.gridShips.changeRow(self, c, ship, rowNum-1, size)
+                if not isValid:
+                    continue
+                self.gridShips.changeRow(c, ship, rowNum-1, size)
             if orientation == 'h': # ship is horizontal
                 for i in range(size): # checks the rest of the spaces based on the orientation and starting point of the ship
                     if not self.gridShips.isSpaceWater(r, c): # one of the spaces is occupied by another ship
-                        print("Error, ship cannot ne placed there")
-                        continue
+                        print("Error, ship cannot be placed there, try again")
+                        isValid = False
+                        break
                     c += 1
-                self.gridShips.changeCol(self, r, ship, colNum-1, size)
+                if not isValid:
+                    continue
+                self.gridShips.changeCol(r, ship, colNum-1, size)
             break
 
     def stillHasShips(self):
         for r in range(10): # nested for loops traverse 2D array
             for c in range(10):
-                if self.gridShips.returnLocation(r, c) is not "X" and self.gridShips.returnLocation(r,c) is not "0" and not self.gridShips.isSpaceWater(r, c):
+                if self.gridShips.returnLocation(r, c) != "X" and self.gridShips.returnLocation(r,c) != "0" and not self.gridShips.isSpaceWater(r, c):
                     return True # if statement returns True if the returnLocation method gives a ship (not an X, 0, or ~)
         return False # a ship was not detected on the map, so there are no ships left
 
