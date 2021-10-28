@@ -65,7 +65,7 @@ class SmartComputerPlayer(ComputerPlayer):
                     self.shoot(otherPlayer, r, c)
                     break
 
-    def shoot(self, otherPlayer, r, c):
+    def shoot(self, otherPlayer, r, c): # shoot helper method, determines a miss, hit, or sink
         if otherPlayer.gridShips.isSpaceWater(r, c):  # the shot is a miss
             self.gridShots.changeSingleSpace(r, c, "0")
             otherPlayer.gridShips.changeSingleSpace(r, c, "0")
